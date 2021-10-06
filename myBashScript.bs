@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+#this is a bash tutorial. To start, we need the Shebang (line 1). It tells the linux system that wer are using bash.
+
+#lets do our first output!
+echo Hello World!#we use echo to ouput to the cli
+
+#variables
+
+#variable definition
+myVariable="A string" #notice that we do not have spaces bwteeen the variable the definiton and the equal sign 
+
+#using variables
+echo $myVariable #to use variables we put the $ in front 
+
+#parameter expansion
+#parm expansion ${var} is used to execude code blocks during command calls
+echo ${myVariable/A/Some} #replaces "A" with "Some" then echo 
+
+#substrings and length
+length=4
+echo ${myVariable:0:length} #my string variable from the first character [0] to the fifth character [4]
+echo ${myVariable:2:6} #outputs "string"
+echo ${#myVariable} #outputs the length 
+
+#indirect expansion
+otherVariable="myVariable"
+echo ${!otherVariable} #will output the value of myVariable
+
+#Default value for var
+#our var is empty
+defVar= 
+echo ${defVar:-"Hello this is a default"}#because it is empty, it will echo the default
