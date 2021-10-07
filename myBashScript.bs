@@ -30,4 +30,86 @@ echo ${!otherVariable} #will output the value of myVariable
 #Default value for var
 #our var is empty
 defVar= 
-echo ${defVar:-"Hello this is a default"}#because it is empty, it will echo the default
+echo ${defVar:-"Hello this is a default"} #because it is empty, it will echo the default
+
+#Arrays
+
+myFirstArray=(one 2 three 4 five six 7)
+
+#we can print the first element in two ways
+echo $myFirstArray
+echo ${myFirstArray[0]}
+#to pring the whole array we do 
+echo ${myFirstArray[@]}
+#we can get the number of elments of an array
+echo ${#myFirstArray[@]}
+#and print a range in the array
+echo ${myFirstArray[@]:3:2} #print 2 elments starting from 4 
+#we can use loops as well
+echo 
+echo
+echo "ITERATION WITH A LOOP:"
+for i in ${myFirstArray[@]}; do
+    echo $i
+done
+
+#Brace Expansion {}
+# we can use brace expansion to generate arbitrary strings
+echo 
+echo {1..10}
+echo {a..z}
+echo
+
+echo "BUILT IN VARIABLES"
+#Built in variables
+#these variables can give us useful info
+echo "Last program's return value: $?"
+echo "Script's PID: $$"
+echo "Numb of args passed to this script: $#"
+echo "All args passed to the script: $@" #each arg is represented by $1, $2, $3, etc
+echo "Working dir: $PWD" #we can also use $(pwd) which interpolates the output afer the command is called. $PWD interpolates the variable.
+
+
+# If statements and input
+echo "Would you like to clear the screen?(yes/no)"
+read Option
+
+#notice we start with if and end with fi
+#we also must put then. It also supports else but after the then and before the fi
+#notice the spaces between the brakets and what is in bwtween the brackets
+
+#we do "$Option" because if the variable was empty we would get the comparison [ "" = "y" ] which is valid
+# otherwise we would get the comparison [ = "y" ] which is not valid.
+
+#notice the mulitple brackets for the multiple comparison operation which are in separet brackets 
+if [ "$Option" = "y" ] || [ "$Option" = "Y" ] || [[ ${Option:-"yes"}  =~ [Yy]+[Ee]+[Ss] ]]
+    then
+        clear
+    else
+        echo "Command line not cleared"
+fi
+
+# we can use regex experssion comparison with [[ string =~ regex expression]]
+
+#we can do arithemthic expressions in the following format
+echo $(( 10 + 5 ))
+
+#Basic commands and piping
+
+#ls lists the files and dirs in current dir
+# ls -l Lists every file and directory on a separate line
+# ls -t Sorts the directory contents by last-modified date (descending)
+# ls -R Recursively `ls` this directory and all of its subdirectories
+
+#we can pass using the pipe | operator
+#say we want to find to find any marldown file in our directories and subdiectories 
+#because we are using git, we have our hidden git dir
+#lets list all of our files then filter it using grep cmmand which takes a pattern
+
+#list all the files in current dir and sub dirs as a list including hidden files and dir
+#piped to find the pattern .md (the \. is to escape the character)
+ls -Rla | grep "\.md"
+
+bryant="gamer"
+echo "${bryant[0]}"
+echo "$bryant[0]"
