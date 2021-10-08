@@ -110,6 +110,29 @@ echo $(( 10 + 5 ))
 #piped to find the pattern .md (the \. is to escape the character)
 ls -Rla | grep "\.md"
 
-bryant="gamer"
-echo "${bryant[0]}"
-echo "$bryant[0]"
+#we can use cat command to read the contents of a files
+#lets create a new file
+echo "What is the name of the new file?"
+read fileName
+touch ${fileName:-File1}.txt
+echo "What would you like to write in the file?"
+read fileContent 
+echo ${fileContent:- "Hello World"} > ${fileName:- File1}.txt 
+
+#we can use the cat comand to read the content of our new file
+echo -e "\nThe content of ${fileName:-File1}.txt is:\n"
+cat ${fileName:- File1}.txt 
+
+#we can make directories and move files around as well!
+echo -e "\nMaking directory..."
+echo "press enter to continue"
+read
+mkdir MyDir
+mv ${fileName:-File1}.txt ./MyDir/${fileName:-File1}.txt
+echo -e "\nYour file has been moved. Take some time to review the changes before deletion"
+echo "press enter to continue"
+read
+
+#lets now delte the file, we dont want to fill the users drive with junk
+rm -r ./MyDir/
+
